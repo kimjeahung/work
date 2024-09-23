@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans');
+    * {
+      font-family: "Black Han Sans", system-ui;
+      font-style: normal;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="flex flex-col bg-red-200 p-5 space-y-2">
+    <label for="">총 몇명? </label>
+    <input type="text" name="" id="total" class="border border-b-indigo-500 ring-2 focus:outline-none pl-2"
+      placeholder="총 몇명인지 입력하세요">
+    <label for="">한줄에 몇명?</label>
+    <input type="text" name="" id="colcount" class="border border-b-indigo-500 ring-2 focus:outline-none pl-2">
+    <div class="flex justify-center">
+      <button id="submit" class="px-5 py-1 bg-amber-800 hover:bg-amber-600 text-white">확인</button>
+    </div>
+  </div>
+
+  <div class="flex flex-col items-center">
+    <h1>앞</h1>
+    <div id="print"></div>
+  </div>
+  <script>
+    var total = document.getElementById('total');
+    var colcount = document.getElementById('colcount');
+    var print = document.getElementById('print');
+
+    const start = "<table class='border border-gray-300'>";
+    const end = '</table>';
+
+    document.getElementById('submit').onclick = () => {
+      if (total.value > 100) {
+        alert('총인원수는 100보다 작아야 합니다.');
+      }
+      if (colcount.value > 10) {
+        alert('한줄에 10명보다 작아야 합니다.');
+      }
+      console.log(`total.value = ${total.value} colcount.value= ${colcount.value}`);
+      // console.log('test'+total.value+colcount.value);
+      const arr = ["김길동", "이길동", "최길동","박길동","홍길동","윤길동","오오오","윤윤윤","빅빅빅","김김김"];
+      const arrIndex = []
+
+      let temp = 0;
+
+      for (var i = 0; i < arr.length; i++) {
+        do{
+          temp = parseInt(Math.random() * arr.length);
+        }while(arrIndex.indexOf(temp)>-1)
+        arrIndex.push(temp);
+      }
+
+      let 행 = "";
+      let num = 0;
+      for (var i = 0; i < arrIndex.length; i++) {
+        행 = 행 + '<tr>';
+        for (let j = 1; j <Number(colcount.value)+1; j++) {
+          if ( arr[arrIndex[num]] == undefined) break;
+          행 = 행 + `<td class="border border-gray-300 px-3">${arr[arrIndex[num]]}</td>`;
+          if(j==4)
+          행 = 행 + `<td class="border border-gray-300 px-8"></td>`;
+          num++;
+        }
+        행 = 행 + '</tr>';
+      }
+      print.innerHTML = `${start}${행}${end}`;
+
+      // 0~20명 랜덤한숫자
+      // 중복이 안나와야되요
+      // 배열인덱스
+
+      // for 구문
+      // arr[arrIndex]
+
+      /*
+      const lineNum = total.value / colcount.value;
+      let 행 = "";
+      let num = 1;
+      for (var i = 0; i < lineNum; i++) {
+        행 = 행 + '<tr>';
+        for (let j = 0; j < colcount.value; j++) {
+          행 = 행 + `<td class="border border-gray-300 px-3">좌석 ${num}</td>`;
+          if (num == Number(total.value))
+            break;
+          num++;
+        }
+        행 = 행 + '</tr>';
+      }
+      print.innerHTML = `${start}${행}${end}`;
+      */
+    }
+  </script>
+</body>
+
+</html>
